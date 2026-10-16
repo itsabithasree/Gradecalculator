@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colorful Grade Calculator</title>
+
+    <style>
+    
+        body {
+            background: linear-gradient(135deg, #eca4c7 0%, #f87d7d 100%);
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+      
+        .card {
+            background-color: white;
+            width: 320px;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+       
+        h2 {
+            text-align: center;
+            color: #ff5858;
+            margin-bottom: 20px;
+        }
+
+       
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #ff5858;
+            outline: none;
+        }
+
+       
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background: linear-gradient(135deg, #f857a6 0%, #ff5858 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        button:hover {
+            opacity: 0.9;
+            transform: scale(1.02); 
+        }
+
+   
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff0f3;
+            border: 2px dashed #ff5858;
+            border-radius: 6px;
+            display: none; 
+            line-height: 1.6;
+            
+            
+            animation: slideDown 0.4s ease-in-out;
+        }
+
+    
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .grade-A { color: #2ecc71; font-weight: bold; }
+        .grade-B { color: #3498db; font-weight: bold; }
+        .grade-C { color: #f39c12; font-weight: bold; }
+        .grade-FAIL { color: #e74c3c; font-weight: bold; }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <h2>Grade Calculator</h2>
+
+        <input type="number" id="num1" placeholder="Enter first mark">
+        <input type="number" id="num2" placeholder="Enter second mark">
+        <input type="number" id="num3" placeholder="Enter third mark">
+        <input type="number" id="num4" placeholder="Enter fourth mark">
+        <input type="number" id="num5" placeholder="Enter fifth mark">
+
+        <button onclick="calculate()">Calculate Grade</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculate() {
+            const num1 = parseFloat(document.getElementById("num1").value);
+            const num2 = parseFloat(document.getElementById("num2").value);
+            const num3 = parseFloat(document.getElementById("num3").value);
+            const num4 = parseFloat(document.getElementById("num4").value);
+            const num5 = parseFloat(document.getElementById("num5").value);
+
+            if ([num1, num2, num3, num4, num5].some(isNaN)) {
+                alert("Please fill in all the mark fields!");
+                return;
+            }
+
+            const total = num1 + num2 + num3 + num4 + num5;
+            const average = total / 5;
+
+            let gradeText = "";
+            let gradeClass = "";
+
+            if (average >= 90) {
+                gradeText = "Grade A";
+                gradeClass = "grade-A";
+            } else if (average >= 80) {
+                gradeText = "Grade B";
+                gradeClass = "grade-B";
+            } else if (average >= 70) {
+                gradeText = "Grade C";
+                gradeClass = "grade-C";
+            } else {
+                gradeText = "FAIL";
+                gradeClass = "grade-FAIL";
+            }
+
+            const resultDiv = document.getElementById("result");
+            resultDiv.style.display = "block";
+
+            resultDiv.innerHTML = `
+                Total Marks: <b>${total}</b><br>
+                Average: <b>${average.toFixed(2)}</b><br>
+                Grade: <span class="${gradeClass}">${gradeText}</span>
+            `;
+        }
+    </script>
+
+</body>
+</html>
